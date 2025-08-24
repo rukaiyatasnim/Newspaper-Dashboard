@@ -7,7 +7,7 @@ import Plans from '../../../Components/Plans/Plans';
 import SubscriptionModal from '../../../Components/SubscriptionModal/SubscriptionModal';
 import FeaturedAuthors from '../../../Components/FeaturedAuthors/FeaturedAuthors';
 import UserTestimonials from '../../../Components/UserTestimonials/UserTestimonials';
-
+import Newsletter from '../../Sales/Newsletter';
 const Home = () => {
     return (
         <div>
@@ -17,6 +17,7 @@ const Home = () => {
             <Statistics></Statistics>
             <Plans></Plans>
             <UserTestimonials></UserTestimonials>
+            <Newsletter></Newsletter>
             <SubscriptionModal></SubscriptionModal>
         </div>
     );
