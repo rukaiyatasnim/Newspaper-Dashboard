@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         axios
-            .get('https://newspaper-server-side-rosy.vercel.app/allArticles')
+            .get('http://localhost:5000/allArticles')
             .then((res) => setArticleData(res.data))
             .catch((err) => console.error('Error fetching articles', err));
     }, []);

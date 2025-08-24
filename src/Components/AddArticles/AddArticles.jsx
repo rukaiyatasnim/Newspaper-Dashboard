@@ -16,7 +16,7 @@ const AddArticle = () => {
     } = useForm();
 
     useEffect(() => {
-        fetch("https://newspaper-server-side-rosy.vercel.app/publishers")
+        fetch("http://localhost:5000/publishers")
             .then((res) => res.json())
             .then(setPublishers)
             .catch(console.error);
@@ -45,7 +45,7 @@ const AddArticle = () => {
             };
 
 
-            const res = await fetch("https://newspaper-server-side-rosy.vercel.app/addArticle", {
+            const res = await fetch("http://localhost:5000/addArticle", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(article),

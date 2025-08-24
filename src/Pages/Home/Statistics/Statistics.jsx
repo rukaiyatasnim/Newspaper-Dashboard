@@ -7,7 +7,7 @@ const Statistics = () => {
     const { data: users = [], isLoading, error } = useQuery({
         queryKey: ["allUsers"],
         queryFn: async () => {
-            const res = await axios.get("https://newspaper-server-side-rosy.vercel.app/users");
+            const res = await axios.get("http://localhost:5000/users");
             return res.data;
         },
     });

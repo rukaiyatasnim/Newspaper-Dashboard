@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentForm from './PaymentForm';
 
 // Load your Stripe publishable key from env variables
-const stripePromise = loadStripe(import.meta.env.VITE_payment_Key);
+const stripePromise = loadStripe(import.meta.env.VITE_payment_key);
 
 const Payment = () => {
     return (

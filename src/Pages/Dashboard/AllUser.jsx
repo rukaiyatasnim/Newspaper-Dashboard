@@ -11,7 +11,7 @@ const AllUser = () => {
     const { data: users = [], isLoading, isError, error } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
-            const res = await axios.get("https://newspaper-server-side-rosy.vercel.app/users");
+            const res = await axios.get("http://localhost:5000/users");
             return res.data;
         },
     });
@@ -19,7 +19,7 @@ const AllUser = () => {
     // Mutation to update user role
     const { mutate: updateRole, isLoading: isUpdatingRole } = useMutation({
         mutationFn: async ({ id, role }) => {
-            return await axios.patch(`https://newspaper-server-side-rosy.vercel.app/users/update-role/${id}`, { role });
+            return await axios.patch(`http://localhost:5000/users/update-role/${id}`, { role });
         },
         onSuccess: () => {
             queryClient.invalidateQueries(["users"]);

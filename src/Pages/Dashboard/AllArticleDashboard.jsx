@@ -11,7 +11,7 @@ const AllArticleDashboard = () => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const res = await axios.get("https://newspaper-server-side-rosy.vercel.app/admin/allArticles");
+                const res = await axios.get("http://localhost:5000/admin/allArticles");
                 setArticles(res.data);
             } catch (error) {
                 console.error("Error fetching articles:", error);
@@ -25,7 +25,7 @@ const AllArticleDashboard = () => {
 
     const handleApprove = async (id) => {
         try {
-            await axios.patch(`https://newspaper-server-side-rosy.vercel.app/admin/articles/${id}/approve`);
+            await axios.patch(`http://localhost:5000/admin/articles/${id}/approve`);
             Swal.fire("Approved", "Article approved successfully", "success");
             setArticles(articles.map(article => article._id === id ? { ...article, status: "approved" } : article));
         } catch (error) {
@@ -36,7 +36,7 @@ const AllArticleDashboard = () => {
 
     const handleDecline = async () => {
         try {
-            await axios.patch(`https://newspaper-server-side-rosy.vercel.app/admin/articles/${declineModal.articleId}/decline`, { reason: declineModal.reason });
+            await axios.patch(`http://localhost:5000/admin/articles/${declineModal.articleId}/decline`, { reason: declineModal.reason });
             Swal.fire("Declined", "Article declined successfully", "success");
             setArticles(articles.map(article => article._id === declineModal.articleId ? { ...article, status: "declined" } : article));
             setDeclineModal({ open: false, articleId: null, reason: "" });
@@ -57,7 +57,7 @@ const AllArticleDashboard = () => {
 
         if (confirm.isConfirmed) {
             try {
-                await axios.delete(`https://newspaper-server-side-rosy.vercel.app/admin/articles/${id}`);
+                await axios.delete(`http://localhost:5000/admin/articles/${id}`);
                 setArticles(articles.filter(article => article._id !== id));
                 Swal.fire("Deleted", "Article deleted successfully", "success");
             } catch (error) {
@@ -69,7 +69,7 @@ const AllArticleDashboard = () => {
 
     const handleMakePremium = async (id) => {
         try {
-            await axios.patch(`https://newspaper-server-side-rosy.vercel.app/admin/articles/${id}/toggle-premium`);
+            await axios.patch(`http://localhost:5000/admin/articles/${id}/toggle-premium`);
             Swal.fire("Success", "Turned Into Premium", "success");
             setArticles(articles.map(article =>
                 article._id === id ? { ...article, isPremium: !article.isPremium } : article
