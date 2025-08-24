@@ -33,14 +33,14 @@ const AuthProvider = ({ children }) => {
 
         try {
             // Check if user already exists
-            const res = await axios.get(`http://localhost:5000/users/${email}`);
+            const res = await axios.get(`https://newspaper-server-side-rosy.vercel.app/users/${email}`);
             // If user found, do nothing
             if (res?.data?.email) return;
         } catch (error) {
             // If 404 Not Found, then create new user
             if (error.response?.status === 404) {
                 try {
-                    await axios.post('http://localhost:5000/users', userInfo);
+                    await axios.post('https://newspaper-server-side-rosy.vercel.app/users', userInfo);
                 } catch (postError) {
                     console.error("Error saving new user to DB:", postError);
                 }
@@ -104,7 +104,7 @@ const AuthProvider = ({ children }) => {
 
             if (currentUser?.email) {
                 try {
-                    const res = await axios.get(`http://localhost:5000/users/role/${currentUser.email.toLowerCase()}`);
+                    const res = await axios.get(`https://newspaper-server-side-rosy.vercel.app/users/role/${currentUser.email.toLowerCase()}`);
                     setRole(res.data.role);
                 } catch (err) {
                     console.error("Error fetching role:", err);
