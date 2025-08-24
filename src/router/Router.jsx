@@ -54,14 +54,8 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
-            {
-                path: "subscription",
-                element: (
-                    <PrivateRoute>
-                        <Subscription />
-                    </PrivateRoute>
-                ),
-            },
+            { path: "subscription", element: <Subscription /> },
+
             {
                 path: "profile",
                 element: (
@@ -78,16 +72,10 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
-            {
-                path: "dashboard",
-                element: (
-                    <PrivateRoute>
-                        <Dashboard />
-                    </PrivateRoute>
-                ),
-            },
         ],
     },
+
+    // Auth Pages
     {
         path: "/",
         element: <AuthLayout />,
@@ -97,6 +85,8 @@ export const router = createBrowserRouter([
             { path: "register", element: <Register /> },
         ],
     },
+
+    // Admin Dashboard
     {
         path: "/dashboard",
         element: (
@@ -112,5 +102,6 @@ export const router = createBrowserRouter([
             { path: "addPublisher", element: <AddPublisher /> },
         ],
     },
+
     { path: "*", element: <Error /> },
 ]);

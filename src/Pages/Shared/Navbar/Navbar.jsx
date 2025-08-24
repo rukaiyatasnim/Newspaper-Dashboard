@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
@@ -28,7 +27,6 @@ const Navbar = () => {
             .catch((err) => console.error(err));
     };
 
-    // Fetch user info and check premium status
     useEffect(() => {
         const fetchUserData = async () => {
             if (!user?.email) {
@@ -47,7 +45,6 @@ const Navbar = () => {
 
                 const premiumDate = new Date(data.premiumTaken);
                 const now = new Date();
-
                 setIsPremium(data.premiumTaken && premiumDate > now);
             } catch (error) {
                 console.error("Error fetching user info:", error);
@@ -62,41 +59,26 @@ const Navbar = () => {
         fetchUserData();
     }, [user, axiosSecure]);
 
-    // Nav links JSX
-    const navLinks = (
+    // Styles
+    const activeLinkStyle =
+        "bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-md";
+    const normalLinkStyle = "hover:text-green-600 transition-colors px-3 py-1 rounded-md";
+
+    // Logged out links (3)
+    const loggedOutLinks = (
         <>
             <li>
                 <NavLink
                     to="/"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                 >
                     Home
                 </NavLink>
             </li>
             <li>
                 <NavLink
-                    to="/addArticle"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
-                >
-                    Add Articles
-                </NavLink>
-            </li>
-            <li>
-                <NavLink
                     to="/allArticle"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                 >
                     All Articles
                 </NavLink>
@@ -104,11 +86,45 @@ const Navbar = () => {
             <li>
                 <NavLink
                     to="/subscription"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
+                >
+                    Subscription
+                </NavLink>
+            </li>
+        </>
+    );
+
+    // Logged in links (5+)
+    const loggedInLinks = (
+        <>
+            <li>
+                <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
+                >
+                    Home
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/addArticle"
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
+                >
+                    Add Articles
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/allArticle"
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
+                >
+                    All Articles
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    to="/subscription"
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                 >
                     Subscription
                 </NavLink>
@@ -116,11 +132,7 @@ const Navbar = () => {
             <li>
                 <NavLink
                     to="/myArticles"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                 >
                     My Articles
                 </NavLink>
@@ -128,11 +140,7 @@ const Navbar = () => {
             <li>
                 <NavLink
                     to="/profile"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-green-700 font-bold"
-                            : "hover:text-green-600 transition"
-                    }
+                    className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                 >
                     My Profile
                 </NavLink>
@@ -140,12 +148,8 @@ const Navbar = () => {
             {isPremium && !checkingPremium && (
                 <li>
                     <NavLink
-                        to="/PremiumArticles"
-                        className={({ isActive }) =>
-                            isActive
-                                ? "text-green-700 font-bold"
-                                : "hover:text-green-600 transition"
-                        }
+                        to="/premiumArticles"
+                        className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                     >
                         Premium Articles
                     </NavLink>
@@ -155,11 +159,7 @@ const Navbar = () => {
                 <li>
                     <NavLink
                         to="/dashboard"
-                        className={({ isActive }) =>
-                            isActive
-                                ? "text-green-700 font-bold"
-                                : "hover:text-green-600 transition"
-                        }
+                        className={({ isActive }) => (isActive ? activeLinkStyle : normalLinkStyle)}
                     >
                         Dashboard
                     </NavLink>
@@ -175,12 +175,7 @@ const Navbar = () => {
                     {/* Navbar Start */}
                     <div className="flex items-center">
                         <div className="dropdown lg:hidden">
-                            <label
-                                tabIndex={0}
-                                className="btn btn-ghost p-2"
-                                role="button"
-                                aria-label="Toggle menu"
-                            >
+                            <label tabIndex={0} className="btn btn-ghost p-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6"
@@ -200,7 +195,7 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-56 p-3 shadow-lg"
                             >
-                                {navLinks}
+                                {user ? loggedInLinks : loggedOutLinks}
                             </ul>
                         </div>
 
@@ -214,7 +209,9 @@ const Navbar = () => {
 
                     {/* Navbar Center */}
                     <div className="hidden lg:flex">
-                        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+                        <ul className="menu menu-horizontal px-1">
+                            {user ? loggedInLinks : loggedOutLinks}
+                        </ul>
                     </div>
 
                     {/* Navbar End */}
@@ -239,7 +236,7 @@ const Navbar = () => {
                                 </div>
                                 <button
                                     onClick={handleSignOut}
-                                    className="btn btn-outline btn-error text-black hover:bg-red-100"
+                                    className="btn btn-outline btn-error text-black hover:bg-red-100 hover:text-red-600 transition"
                                 >
                                     Sign Out
                                 </button>
@@ -248,13 +245,13 @@ const Navbar = () => {
                             <>
                                 <NavLink
                                     to="/login"
-                                    className="btn btn-outline btn-success hover:bg-green-600 hover:text-white"
+                                    className="btn btn-outline btn-success hover:bg-green-600 hover:text-white transition"
                                 >
                                     Login
                                 </NavLink>
                                 <NavLink
                                     to="/register"
-                                    className="btn btn-success hover:bg-green-700 text-white"
+                                    className="btn btn-success hover:bg-green-700 text-white transition"
                                 >
                                     Sign Up
                                 </NavLink>
