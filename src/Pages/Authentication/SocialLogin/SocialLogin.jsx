@@ -22,7 +22,7 @@ const SocialLogin = () => {
             };
 
             // Save user to backend
-            await axios.post('http://localhost:5000/users', userInfo);
+            await axios.post('https://newspaper-server-side-rosy.vercel.app/users', userInfo);
 
             // Optionally: redirect or show success message here
             setLoading(false);

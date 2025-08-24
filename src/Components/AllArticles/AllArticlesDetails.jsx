@@ -3,8 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../Pages/Shared/Loader/Loader";
 
-// Set your backend base URL here if needed
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://newspaper-server-side-rosy.vercel.app/";
 
 const AllArticlesDetails = () => {
     const { id } = useParams();

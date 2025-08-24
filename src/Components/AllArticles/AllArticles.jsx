@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 import Swal from "sweetalert2";
 import Loader from "../../Pages/Shared/Loader/Loader";
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://newspaper-server-side-rosy.vercel.app/";
 
 const publishers = [
     { value: "prthom-alo", label: "Prthom Alo" },

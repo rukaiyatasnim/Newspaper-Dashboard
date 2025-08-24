@@ -8,7 +8,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Loader from "../../Pages/Shared/Loader/Loader";
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL =
+    "https://newspaper-server-side-rosy.vercel.app/";
 
 const TrendingArticles = () => {
     const [articles, setArticles] = useState([]);
@@ -21,8 +22,23 @@ const TrendingArticles = () => {
             try {
                 setLoading(true);
                 const { data } = await axios.get("/articles/trending");
-                const filtered = data.filter(article => article.views > 0);
-                setArticles(filtered.slice(0, 7));
+
+                if (!Array.isArray(data)) throw new Error("Invalid data");
+
+                // Ensure views exist & publisherName exists
+                const filtered = data
+                    .map((article) => ({
+                        ...article,
+                        views: article.views || 0,
+                        publisherName: article.publisherName || "Unknown Publisher",
+                        image:
+                            article.image ||
+                            "https://via.placeholder.com/400x200?text=No+Image",
+                    }))
+                    .filter((article) => article.views > 0)
+                    .slice(0, 7);
+
+                setArticles(filtered);
             } catch (err) {
                 console.error(err);
                 setError("Failed to load trending articles.");
@@ -34,14 +50,11 @@ const TrendingArticles = () => {
         fetchTrending();
     }, []);
 
-    if (loading)
-        return <Loader></Loader>
+    if (loading) return <Loader />;
 
     if (error)
         return (
-            <p className="text-center mt-10 text-red-600 font-medium">
-                {error}
-            </p>
+            <p className="text-center mt-10 text-red-600 font-medium">{error}</p>
         );
 
     if (!articles.length)

@@ -18,7 +18,7 @@ const Profile = () => {
         enabled: !!user?.email,
         queryFn: async () => {
             const encodedEmail = encodeURIComponent(user.email);
-            const res = await axios.get(`http://localhost:5000/users/${encodedEmail}`);
+            const res = await axios.get(`https://newspaper-server-side-rosy.vercel.app/users/${encodedEmail}`);
             reset(res.data); // preload form fields
             return res.data;
         },
@@ -28,7 +28,7 @@ const Profile = () => {
     const updateProfile = useMutation({
         mutationFn: async (data) => {
             const encodedEmail = encodeURIComponent(user.email);
-            return await axios.put(`http://localhost:5000/users/${encodedEmail}`, data);
+            return await axios.put(`https://newspaper-server-side-rosy.vercel.app/users/${encodedEmail}`, data);
         },
         onSuccess: () => {
             Swal.fire({

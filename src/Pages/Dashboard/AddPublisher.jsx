@@ -46,7 +46,7 @@ const AddPublisher = () => {
         if (!logoUrl) return;
 
         try {
-            const res = await axios.post("http://localhost:5000/publishers", {
+            const res = await axios.post("https://newspaper-server-side-rosy.vercel.app/publishers", {
                 name: name.trim(),
                 logoUrl,
             });

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Helmet } from "react-helmet";
 
 import { AuthContext } from "../../../Context/AuthContext/AuthContext";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
@@ -63,7 +62,7 @@ const Navbar = () => {
         fetchUserData();
     }, [user, axiosSecure]);
 
-    // Nav links JSX for reuse
+    // Nav links JSX
     const navLinks = (
         <>
             <li>
@@ -171,96 +170,102 @@ const Navbar = () => {
 
     return (
         <>
-
-
-            <div className="navbar bg-base-100 shadow-sm px-4">
-                <div className="navbar-start">
-                    <div className="dropdown">
-                        <label
-                            tabIndex={0}
-                            className="btn btn-ghost lg:hidden"
-                            role="button"
-                            aria-label="Toggle menu"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+            <div className="fixed top-0 left-0 w-full z-50 bg-base-100 shadow-sm">
+                <div className="max-w-[1200px] mx-auto flex justify-between items-center px-4 h-16">
+                    {/* Navbar Start */}
+                    <div className="flex items-center">
+                        <div className="dropdown lg:hidden">
+                            <label
+                                tabIndex={0}
+                                className="btn btn-ghost p-2"
+                                role="button"
+                                aria-label="Toggle menu"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16"
-                                />
-                            </svg>
-                        </label>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-56 p-3 shadow-lg"
-                        >
-                            {navLinks}
-                        </ul>
-                    </div>
-                    <Link
-                        to="/"
-                        className="btn btn-ghost normal-case text-2xl font-extrabold tracking-wide text-green-700"
-                    >
-                        Newsly
-                    </Link>
-                </div>
-
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">{navLinks}</ul>
-                </div>
-
-                <div className="navbar-end flex items-center space-x-4">
-                    {user ? (
-                        <>
-
-                            <div className="relative flex flex-col items-center group">
-                                <Link to="/profile">
-                                    <img
-                                        src={
-                                            user.photoURL ||
-                                            "https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2247726673.jpg"
-                                        }
-                                        alt={user.displayName || "User Avatar"}
-                                        className="w-10 h-10 rounded-full cursor-pointer border-2 border-green-600"
-                                        title={user.displayName || user.email}
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4 6h16M4 12h8m-8 6h16"
                                     />
-                                </Link>
-                                <span className="absolute top-12 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                    {user.displayName}
-                                </span>
-                            </div>
-                            <button
-                                onClick={handleSignOut}
-                                className="btn btn-outline btn-error text-black hover:bg-red-100"
+                                </svg>
+                            </label>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-56 p-3 shadow-lg"
                             >
-                                Sign Out
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            <NavLink
-                                to="/login"
-                                className="btn btn-outline btn-success hover:bg-green-600 hover:text-white"
-                            >
-                                Login
-                            </NavLink>
-                            <NavLink
-                                to="/register"
-                                className="btn btn-success hover:bg-green-700 text-white"
-                            >
-                                Sign Up
-                            </NavLink>
-                        </>
-                    )}
+                                {navLinks}
+                            </ul>
+                        </div>
+
+                        <Link
+                            to="/"
+                            className="btn btn-ghost normal-case text-2xl font-extrabold tracking-wide text-green-700"
+                        >
+                            Newsly
+                        </Link>
+                    </div>
+
+                    {/* Navbar Center */}
+                    <div className="hidden lg:flex">
+                        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+                    </div>
+
+                    {/* Navbar End */}
+                    <div className="flex items-center space-x-4">
+                        {user ? (
+                            <>
+                                <div className="relative flex flex-col items-center group">
+                                    <Link to="/profile">
+                                        <img
+                                            src={
+                                                user.photoURL ||
+                                                "https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2247726673.jpg"
+                                            }
+                                            alt={user.displayName || "User Avatar"}
+                                            className="w-10 h-10 rounded-full cursor-pointer border-2 border-green-600"
+                                            title={user.displayName || user.email}
+                                        />
+                                    </Link>
+                                    <span className="absolute top-12 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                        {user.displayName}
+                                    </span>
+                                </div>
+                                <button
+                                    onClick={handleSignOut}
+                                    className="btn btn-outline btn-error text-black hover:bg-red-100"
+                                >
+                                    Sign Out
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <NavLink
+                                    to="/login"
+                                    className="btn btn-outline btn-success hover:bg-green-600 hover:text-white"
+                                >
+                                    Login
+                                </NavLink>
+                                <NavLink
+                                    to="/register"
+                                    className="btn btn-success hover:bg-green-700 text-white"
+                                >
+                                    Sign Up
+                                </NavLink>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
+
+            {/* Spacer so content is not hidden behind fixed navbar */}
+            <div className="h-16"></div>
         </>
     );
 };

@@ -10,7 +10,7 @@ const AllPublishers = () => {
     useEffect(() => {
         const fetchPublishers = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/publishers");
+                const res = await axios.get("https://newspaper-server-side-rosy.vercel.app/publishers");
                 setPublishers(res.data);
                 setLoading(false);
             } catch (error) {

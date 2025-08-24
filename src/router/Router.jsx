@@ -18,8 +18,8 @@ import AllUser from "../Pages/Dashboard/AllUser";
 import AddPublisher from "../Pages/Dashboard/AddPublisher";
 import AllArticleDashboard from "../Pages/Dashboard/AllArticleDashboard";
 import Error from "../Pages/Shared/Error/Error";
-import PrivateRoute from './../Routes/PrivateRoute';
-import AdminRoute from './../Routes/AdminRoute';
+import PrivateRoute from "../Routes/PrivateRoute";
+import AdminRoute from "../Routes/AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +28,8 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             { index: true, element: <Home /> },
+            { path: "allArticle", element: <AllArticles /> },
+            { path: "articles/:id", element: <AllArticlesDetails /> },
             {
                 path: "addArticle",
                 element: (
@@ -36,8 +38,6 @@ export const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
-            { path: "allArticle", element: <AllArticles /> },
-            { path: "articles/:id", element: <AllArticlesDetails /> },
             {
                 path: "myArticles",
                 element: (
